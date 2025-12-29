@@ -9,7 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@myriaddreamin/typst-ts-renderer": "^0.7.0-rc2",
+    "@myriaddreamin/typst-ts-web-compiler": "^0.7.0-rc2",
+    "@myriaddreamin/typst.ts": "^0.7.0-rc2",
+    "codemirror": "^6.0.2",
     "next": "16.1.1",
+    "pdf.js": "^0.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
