@@ -72,11 +72,20 @@ let emojiLoaded = false;
 // ============================================================================
 
 /**
- * Fetches the Typst WASM module from CDN
+ * Fetches the Typst WASM module
  */
 async function fetchWasmModule(): Promise<ArrayBuffer> {
-	const response = await fetch(TYPST_WASM_URL);
+	// Construct absolute URL from worker's origin
+	const absoluteUrl = new URL(TYPST_WASM_URL, self.location.origin).href;
+	const response = await fetch(absoluteUrl);
 	return await response.arrayBuffer();
+}
+
+/**
+ * Converts relative font URLs to absolute URLs
+ */
+function resolveFont(fontPath: string): string {
+	return new URL(fontPath, self.location.origin).href;
 }
 
 /**
@@ -84,10 +93,12 @@ async function fetchWasmModule(): Promise<ArrayBuffer> {
  */
 async function createCompilerWithFonts(fonts: string[]): Promise<TypstCompiler> {
 	const compiler = createTypstCompiler();
+	// Resolve all font paths to absolute URLs
+	const absoluteFonts = fonts.map(resolveFont);
 	await compiler.init({
 		getModule: fetchWasmModule,
 		beforeBuild: [
-			loadFonts(fonts, {
+			loadFonts(absoluteFonts, {
 				assets: ['text']
 			})
 		]
