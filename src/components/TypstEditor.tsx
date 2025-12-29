@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Loader2, CheckCircle2, XCircle, Check, Zap, FileText, ChevronDown } from 'lucide-react'
 import { TypstCompilerService, type CompileStatus } from '@/lib/typst/TypstCompilerService'
 import { debounce, downloadPdfFromUrl } from '@/lib/utils/helpers'
-import { TYPST_EXAMPLES } from '@/lib/typst/examples/TypstExamples'
+import { TYPST_EXAMPLES, fetchExample } from '@/lib/typst/examples/TypstExamples'
 
 export default function TypstEditor() {
 	const [typstCode, setTypstCode] = useState(`= Hello Typst
@@ -74,11 +74,17 @@ This is a test.`)
 		}
 	}
 
-	function loadExample(exampleId: string) {
+	async function loadExample(exampleId: string) {
 		const example = TYPST_EXAMPLES.find(ex => ex.id === exampleId)
 		if (example) {
-			setTypstCode(example.code)
-			setShowExamples(false)
+			try {
+				const code = await fetchExample(example.filePath)
+				setTypstCode(code)
+				setShowExamples(false)
+			} catch (error) {
+				console.error('Failed to load example:', error)
+				setErrorMsg(error instanceof Error ? error.message : 'Failed to load example')
+			}
 		}
 	}
 
