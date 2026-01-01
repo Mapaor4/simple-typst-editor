@@ -2,6 +2,8 @@
 
 A lightweight web-based Typst editor that compiles documents directly in your browser using WebAssembly. No servers, everything client-side.
 
+A more full-featured editor here: [typst-online-editor](https://github.com/Mapaor/typst-online-editor].
+
 ## Tech used
 
 This website is built with NextJS (React), Typst.ts (Typst for the javascript world, ported to WASM by @myriaddreamin) and PDFjs.
@@ -15,7 +17,7 @@ This website is built with NextJS (React), Typst.ts (Typst for the javascript wo
 
 - Everything client-side thanks to typst.ts
 - Minimal simple demo with compile button and debounce auto-compilation (it compiles as you type)
-- Portable. Structured to be as framework-agnostic as possible. This is the NextJS version. You can find a Vite+Svelte version [here](https://github.com/Mapaor/typst-online-vite).
+- Portable. Structured to be as framework-agnostic as possible. This is the NextJS minimal version. You can find a minimal Vite+Svelte version [here](https://github.com/Mapaor/typst-online-vite). You can also find a more full-featured demo [here](https://typst-online-editor.vercel.app).
 
 ## Credits
 
